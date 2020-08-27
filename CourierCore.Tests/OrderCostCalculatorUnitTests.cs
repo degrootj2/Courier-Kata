@@ -10,24 +10,24 @@ namespace CourierCore.Tests
         [Fact]
         public void CalculateOrderCost_Correctly()
         {
-            List<PackageSize> orderPackages1 = new List<PackageSize>() {
-                new PackageSize {Length = 5, Width = 2, Thickness = 1},
-                new PackageSize {Length = 10, Width = 2, Thickness = 1},
-                new PackageSize {Length = 10, Width = 5, Thickness = 12},
-                new PackageSize {Length = 15, Width = 5, Thickness = 3},
-                new PackageSize {Length = 55, Width = 5, Thickness = 3},
-                new PackageSize {Length = 105, Width = 5, Thickness = 3}
+            List<PackageSizeWeight> orderPackages1 = new List<PackageSizeWeight>() {
+                new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 2f},
+                new PackageSizeWeight {Length = 10, Width = 2, Thickness = 1, Weight = 2f},
+                new PackageSizeWeight {Length = 10, Width = 5, Thickness = 12, Weight = 2f},
+                new PackageSizeWeight {Length = 15, Width = 5, Thickness = 3, Weight = 2f},
+                new PackageSizeWeight {Length = 55, Width = 5, Thickness = 3, Weight = 2f},
+                new PackageSizeWeight {Length = 105, Width = 5, Thickness = 3, Weight = 2f}
             };
-            List<PackageSize> orderPackages2 = new List<PackageSize>() {
-                new PackageSize {Length = 5, Width = 2, Thickness = 1},
+            List<PackageSizeWeight> orderPackages2 = new List<PackageSizeWeight>() {
+                new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 2f},
             };
-            List<PackageSize> orderPackages3 = new List<PackageSize>() {
-                new PackageSize {Length = 10, Width = 2, Thickness = 1},
-                new PackageSize {Length = 15, Width = 5, Thickness = 3},
-                new PackageSize {Length = 55, Width = 5, Thickness = 3},
-                new PackageSize {Length = 105, Width = 5, Thickness = 3}
+            List<PackageSizeWeight> orderPackages3 = new List<PackageSizeWeight>() {
+                new PackageSizeWeight {Length = 10, Width = 2, Thickness = 1, Weight = 2f},
+                new PackageSizeWeight {Length = 15, Width = 5, Thickness = 3, Weight = 2f},
+                new PackageSizeWeight {Length = 55, Width = 5, Thickness = 3, Weight = 2f},
+                new PackageSizeWeight {Length = 105, Width = 5, Thickness = 3, Weight = 2f}
             };
-            List<PackageSize> orderPackages4 = new List<PackageSize>();
+            List<PackageSizeWeight> orderPackages4 = new List<PackageSizeWeight>();
 
             OrderPricing orderPricing1 = CalculateOrderCost(orderPackages1, false);
             OrderPricing orderPricing2 = CalculateOrderCost(orderPackages2, false);
@@ -43,13 +43,13 @@ namespace CourierCore.Tests
         [Fact]
         public void CalculateOrderCost_SpeedyShippingCorrectly()
         {
-            List<PackageSize> orderPackages1 = new List<PackageSize>() {
-                new PackageSize {Length = 5, Width = 2, Thickness = 1},
-                new PackageSize {Length = 10, Width = 2, Thickness = 1},
-                new PackageSize {Length = 10, Width = 5, Thickness = 12},
-                new PackageSize {Length = 15, Width = 5, Thickness = 3},
-                new PackageSize {Length = 55, Width = 5, Thickness = 3},
-                new PackageSize {Length = 105, Width = 5, Thickness = 3}
+            List<PackageSizeWeight> orderPackages1 = new List<PackageSizeWeight>() {
+                new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 2f},
+                new PackageSizeWeight {Length = 10, Width = 2, Thickness = 1, Weight = 2f},
+                new PackageSizeWeight {Length = 10, Width = 5, Thickness = 12, Weight = 2f},
+                new PackageSizeWeight {Length = 15, Width = 5, Thickness = 3, Weight = 2f},
+                new PackageSizeWeight {Length = 55, Width = 5, Thickness = 3, Weight = 2f},
+                new PackageSizeWeight {Length = 105, Width = 5, Thickness = 3, Weight = 2f}
             };
 
             OrderPricing orderPricingNoSpeedy = CalculateOrderCost(orderPackages1, false);

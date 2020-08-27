@@ -7,11 +7,11 @@ namespace CourierCore
 {
     public static class OrderCostCalculator
     {
-        public static OrderPricing CalculateOrderCost(List<PackageSize> packageSizes, bool speedyShippingChosen)
+        public static OrderPricing CalculateOrderCost(List<PackageSizeWeight> packageSizes, bool speedyShippingChosen)
         {
             List<PackageCostInfo> packageCosts = new List<PackageCostInfo>();
 
-            foreach (PackageSize package in packageSizes)
+            foreach (PackageSizeWeight package in packageSizes)
             {
                 packageCosts.Add(GeneratePackageInfo(package));
             }

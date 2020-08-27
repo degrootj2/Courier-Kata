@@ -7,12 +7,12 @@ namespace CourierCore
 {
     public static class PackageCostCalculator
     {
-        public static PackageCostInfo GeneratePackageInfo(PackageSize size)
+        public static PackageCostInfo GeneratePackageInfo(PackageSizeWeight sizeWeight)
         {
             try
             {
-                PackageType packageType = DetermineSize(size.Length, size.Width, size.Thickness);
-                float packageCost = CalculateCost(packageType);
+                PackageType packageType = DetermineSize(sizeWeight.Length, sizeWeight.Width, sizeWeight.Thickness);
+                float packageCost = CalculateCost(packageType, sizeWeight.Weight);
 
                 return new PackageCostInfo(packageType, packageCost);
             }
@@ -44,16 +44,40 @@ namespace CourierCore
             }
         }
 
-        public static float CalculateCost(PackageType packageType)
+        public static float CalculateCost(PackageType packageType, float weight)
         {
-            switch (packageType)
+            float cost = 0f;
+            float amountOverWeight = 0f;
+
+            const float overWeightCostPerKg = 2f;
+
+            if (packageType == PackageType.Small)
             {
-                case PackageType.Small: return 3f;
-                case PackageType.Medium: return 8f;
-                case PackageType.Large: return 15f;
-                case PackageType.ExtraLarge: return 26f;
-                default: return 26f;
+                cost = 3f;
+                amountOverWeight = (weight > 1f) ? weight - 1f : 0f;
             }
+            else if (packageType == PackageType.Medium)
+            {
+                cost = 8f;
+                amountOverWeight = (weight > 3f) ? weight - 3f : 0f;
+            }
+            else if (packageType == PackageType.Large)
+            {
+                cost = 15f;
+                amountOverWeight = (weight > 6f) ? weight - 6f : 0f;
+            }
+            else if (packageType == PackageType.ExtraLarge)
+            {
+                cost = 26f;
+                amountOverWeight = (weight > 10) ? weight - 10f : 0f;
+            }
+
+            if (amountOverWeight != 0)
+            {
+                cost += (float)(Math.Floor(amountOverWeight / 2f)) * overWeightCostPerKg;
+            }
+
+            return cost;
         }
     }
 }
