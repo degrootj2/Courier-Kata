@@ -34,8 +34,8 @@ namespace CourierCore.Tests
             OrderPricing orderPricing3 = CalculateOrderCost(orderPackages3, false);
             OrderPricing orderPricing4 = CalculateOrderCost(orderPackages4, false);
 
-            Assert.True(orderPricing1.TotalCost == 68);
-            Assert.True(orderPricing2.TotalCost == 3);
+            Assert.True(orderPricing1.TotalCost == 70);
+            Assert.True(orderPricing2.TotalCost == 5);
             Assert.True(orderPricing3.TotalCost == 57);
             Assert.True(orderPricing4.TotalCost == 0);
         }
@@ -56,9 +56,9 @@ namespace CourierCore.Tests
             OrderPricing orderPricingWithSpeedy = CalculateOrderCost(orderPackages1, true);
 
 
-            Assert.True(orderPricingNoSpeedy.TotalCost == 68);
-            Assert.True(orderPricingWithSpeedy.TotalCost == 136);
-            Assert.True(orderPricingWithSpeedy.SpeedyShippingCost == 68);
+            Assert.True(orderPricingNoSpeedy.TotalCost == 70);
+            Assert.True(orderPricingWithSpeedy.TotalCost == 140);
+            Assert.True(orderPricingWithSpeedy.SpeedyShippingCost == 70);
         }
 
     }

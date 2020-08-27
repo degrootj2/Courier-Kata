@@ -14,6 +14,15 @@ namespace CourierCore
                 PackageType packageType = DetermineSize(sizeWeight.Length, sizeWeight.Width, sizeWeight.Thickness);
                 float packageCost = CalculateCost(packageType, sizeWeight.Weight);
 
+                if (packageCost > 50f)
+                {
+                    float heavyPackageCost = CalculateCost(PackageType.Heavy, sizeWeight.Weight);
+                    if (heavyPackageCost < packageCost)
+                    {
+                        return new PackageCostInfo(PackageType.Heavy, heavyPackageCost);
+                    }
+                }
+
                 return new PackageCostInfo(packageType, packageCost);
             }
             catch (Exception ex)
@@ -49,7 +58,7 @@ namespace CourierCore
             float cost = 0f;
             float amountOverWeight = 0f;
 
-            const float overWeightCostPerKg = 2f;
+            float overWeightCostPerKg = (packageType == PackageType.Heavy) ? 1f : 2f;
 
             if (packageType == PackageType.Small)
             {
@@ -71,10 +80,15 @@ namespace CourierCore
                 cost = 26f;
                 amountOverWeight = (weight > 10) ? weight - 10f : 0f;
             }
+            else if (packageType == PackageType.Heavy)
+            {
+                cost = 50f;
+                amountOverWeight = (weight > 50) ? weight - 50f : 0f;
+            }
 
             if (amountOverWeight != 0)
             {
-                cost += (float)(Math.Floor(amountOverWeight / 2f)) * overWeightCostPerKg;
+                cost += (float)(Math.Floor(amountOverWeight)) * overWeightCostPerKg;
             }
 
             return cost;

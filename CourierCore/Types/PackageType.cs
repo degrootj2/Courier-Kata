@@ -8,6 +8,7 @@ namespace CourierCore
         Medium,
         Large,
         ExtraLarge,
+        Heavy,
         Undefined
     };
 }

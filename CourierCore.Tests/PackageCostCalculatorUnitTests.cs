@@ -19,11 +19,11 @@ namespace CourierCore.Tests
         [Fact]
         public void CalculateCostUsingTypeCorrectly_OverWeightLimit()
         {
-            Assert.Equal(CalculateCost(PackageType.Small, 3f), 5f);
-            Assert.Equal(CalculateCost(PackageType.Medium, 5f), 10f);
-            Assert.Equal(CalculateCost(PackageType.Large, 8f), 17f);
-            Assert.Equal(CalculateCost(PackageType.ExtraLarge, 12f), 28f);
-            Assert.Equal(CalculateCost(PackageType.ExtraLarge, 20f), 36f);
+            Assert.Equal(CalculateCost(PackageType.Small, 3f), 7f);
+            Assert.Equal(CalculateCost(PackageType.Medium, 5f), 12f);
+            Assert.Equal(CalculateCost(PackageType.Large, 8f), 19f);
+            Assert.Equal(CalculateCost(PackageType.ExtraLarge, 12f), 30f);
+            Assert.Equal(CalculateCost(PackageType.ExtraLarge, 20f), 46f);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace CourierCore.Tests
         [Fact]
         public void GeneratePackageInfoCorrectly()
         {
-            PackageCostInfo smallPackage = GeneratePackageInfo(new PackageSizeWeight { Length = 5, Width = 2, Thickness = 1, Weight = 2f });
+            PackageCostInfo smallPackage = GeneratePackageInfo(new PackageSizeWeight { Length = 5, Width = 2, Thickness = 1, Weight = 1f });
             PackageCostInfo smallPackageOverWeight = GeneratePackageInfo(new PackageSizeWeight { Length = 5, Width = 2, Thickness = 1, Weight = 3f });
             PackageCostInfo mediumPackage = GeneratePackageInfo(new PackageSizeWeight { Length = 15, Width = 2, Thickness = 1, Weight = 2f });
             PackageCostInfo largePackage = GeneratePackageInfo(new PackageSizeWeight { Length = 55, Width = 2, Thickness = 1, Weight = 2f });
@@ -50,7 +50,7 @@ namespace CourierCore.Tests
             Assert.Equal(smallPackage.Cost, 3f);
 
             Assert.Equal(smallPackageOverWeight.Type, PackageType.Small);
-            Assert.Equal(smallPackageOverWeight.Cost, 5f);
+            Assert.Equal(smallPackageOverWeight.Cost, 7f);
 
             Assert.Equal(mediumPackage.Type, PackageType.Medium);
             Assert.Equal(mediumPackage.Cost, 8f);
@@ -60,6 +60,20 @@ namespace CourierCore.Tests
 
             Assert.Equal(extraLargePackage.Type, PackageType.ExtraLarge);
             Assert.Equal(extraLargePackage.Cost, 26f);
+        }
+
+
+        [Fact]
+        public void GeneratePackageInfo_HeavyPackagepCalculatedCorrectly()
+        {
+            PackageCostInfo heavyPackage = GeneratePackageInfo(new PackageSizeWeight { Length = 10, Width = 2, Thickness = 1, Weight = 50f });
+            PackageCostInfo veryHeavyPackage = GeneratePackageInfo(new PackageSizeWeight { Length = 105, Width = 2, Thickness = 1, Weight = 100f });
+
+            Assert.Equal(heavyPackage.Type, PackageType.Heavy);
+            Assert.Equal(heavyPackage.Cost, 50f);
+
+            Assert.Equal(veryHeavyPackage.Type, PackageType.Heavy);
+            Assert.Equal(veryHeavyPackage.Cost, 100f);
         }
     }
 }
