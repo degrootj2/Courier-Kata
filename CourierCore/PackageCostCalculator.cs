@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace CourierCore
 {
-    public static class PackagePriceCalculator
+    public static class PackageCostCalculator
     {
         public static PackageCostInfo GeneratePackageInfo(PackageSize size)
         {
             try
             {
                 PackageType packageType = DetermineSize(size.Length, size.Width, size.Thickness);
-                float packagePrice = CalculatePrice(packageType);
+                float packageCost = CalculateCost(packageType);
 
-                return new PackageCostInfo(packageType, packagePrice);
+                return new PackageCostInfo(packageType, packageCost);
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace CourierCore
             }
         }
 
-        public static float CalculatePrice(PackageType packageType)
+        public static float CalculateCost(PackageType packageType)
         {
             switch (packageType)
             {

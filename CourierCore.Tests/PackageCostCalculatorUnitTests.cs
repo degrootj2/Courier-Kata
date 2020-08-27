@@ -1,19 +1,19 @@
 using System;
 using Xunit;
-using static CourierCore.PackagePriceCalculator;
+using static CourierCore.PackageCostCalculator;
 
 namespace CourierCore.Tests
 {
-    public class PackagePriceCalculatorUnitTests
+    public class PackageCostCalculatorUnitTests
     {
 
         [Fact]
-        public void CalculatePriceUsingTypeCorrectly()
+        public void CalculateCostUsingTypeCorrectly()
         {
-            Assert.Equal(CalculatePrice(PackageType.Small), 3f);
-            Assert.Equal(CalculatePrice(PackageType.Medium), 8f);
-            Assert.Equal(CalculatePrice(PackageType.Large), 15f);
-            Assert.Equal(CalculatePrice(PackageType.ExtraLarge), 26f);
+            Assert.Equal(CalculateCost(PackageType.Small), 3f);
+            Assert.Equal(CalculateCost(PackageType.Medium), 8f);
+            Assert.Equal(CalculateCost(PackageType.Large), 15f);
+            Assert.Equal(CalculateCost(PackageType.ExtraLarge), 26f);
         }
 
         [Fact]

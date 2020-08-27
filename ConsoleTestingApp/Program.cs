@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CourierCore;
-using static CourierCore.OrderPriceCalculator;
+using static CourierCore.OrderCostCalculator;
 
 namespace ConsoleTestingApp
 {
@@ -18,18 +18,22 @@ namespace ConsoleTestingApp
                 new PackageSize {Length = 105, Width = 5, Thickness = 3}
             };
 
-            OrderPricing orderPricing = CalculateOrderPrice(inputPackages);
+            OrderPricing orderPricing = CalculateOrderCost(inputPackages, true);
 
             foreach (var package in orderPricing.PackagesInfo)
             {
                 if (package.Type == PackageType.Undefined)
                 {
-                    Console.WriteLine("Unknown package type and price, an error occured");
+                    Console.WriteLine("Unknown package type and cost, an error occured");
                 }
                 else
                 {
                     Console.WriteLine(package.Type.ToString() + " package cost: $" + package.Cost.ToString());
                 }
+            }
+            if (orderPricing.SpeedyShippingCost != 0)
+            {
+                Console.WriteLine("Speedy shipping cost: $" + orderPricing.SpeedyShippingCost);
             }
             Console.WriteLine("Total cost: $" + orderPricing.TotalCost);
         }
