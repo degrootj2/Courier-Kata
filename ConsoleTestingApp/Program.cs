@@ -11,16 +11,20 @@ namespace ConsoleTestingApp
         {
             List<PackageSizeWeight> inputPackages = new List<PackageSizeWeight>() {
                 new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 1},
+                new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 3},
+                new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 1},
+                new PackageSizeWeight {Length = 5, Width = 2, Thickness = 1, Weight = 1},
                 new PackageSizeWeight {Length = 10, Width = 2, Thickness = 1, Weight = 2},
-                new PackageSizeWeight {Length = 10, Width = 5, Thickness = 12, Weight = 2},
+                new PackageSizeWeight {Length = 10, Width = 5, Thickness = 12, Weight = 6},
                 new PackageSizeWeight {Length = 15, Width = 5, Thickness = 3, Weight = 2},
+                new PackageSizeWeight {Length = 15, Width = 5, Thickness = 3, Weight = 8},
                 new PackageSizeWeight {Length = 55, Width = 5, Thickness = 3, Weight = 5},
                 new PackageSizeWeight {Length = 105, Width = 5, Thickness = 3, Weight = 7}
             };
 
-            OrderPricing orderPricing = CalculateOrderCost(inputPackages, true);
+            OrderCost orderCost = CalculateOrderCost(inputPackages, true);
 
-            foreach (var package in orderPricing.PackagesInfo)
+            foreach (var package in orderCost.PackagesInfo)
             {
                 if (package.Type == PackageType.Undefined)
                 {
@@ -28,14 +32,15 @@ namespace ConsoleTestingApp
                 }
                 else
                 {
-                    Console.WriteLine(package.Type.ToString() + " package cost: $" + package.Cost.ToString());
+                    Console.WriteLine(package.Type.ToString() + " package cost: $" + package.Cost.ToString() + (package.Discounted ? " (discounted)" : ""));
                 }
             }
-            if (orderPricing.SpeedyShippingCost != 0)
+            Console.WriteLine("Total discounts: $" + orderCost.TotalDiscounts);
+            if (orderCost.SpeedyShippingCost != 0)
             {
-                Console.WriteLine("Speedy shipping cost: $" + orderPricing.SpeedyShippingCost);
+                Console.WriteLine("Speedy shipping cost: $" + orderCost.SpeedyShippingCost);
             }
-            Console.WriteLine("Total cost: $" + orderPricing.TotalCost);
+            Console.WriteLine("Total cost (minus any discounts): $" + orderCost.TotalCost);
         }
     }
 }

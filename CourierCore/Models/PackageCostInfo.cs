@@ -6,6 +6,7 @@ namespace CourierCore
     {
         public PackageType Type;
         public float Cost;
+        public bool Discounted = false;
 
         public PackageCostInfo(PackageType type, float cost)
         {
